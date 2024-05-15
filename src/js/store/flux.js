@@ -1,45 +1,40 @@
+// flux.js
 const getState = ({ getStore, getActions, setStore }) => {
-	return {
-		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
-		},
-		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
-			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
-			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
-
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
-
-				//reset the global store
-				setStore({ demo: demo });
-			}
-		}
-	};
+  return {
+      store: {
+          Users: [],
+      },
+      actions: {
+          getData: async () => {
+              try {
+                  const response = await fetch('https://playground.4geeks.com/contact/agendas/Joseblue11');
+                  if (!response.ok) {
+                      throw new Error('Error, no se pudo obtener los datos de contacto');
+                  }
+                  const data = await response.json();
+                  setStore({ Users: data.Users });
+              } catch (error) {
+                  console.error('Error:', error);
+              }
+          },
+          deleteUser: async (UserId) => {
+              try {
+                  const response = await fetch(`https://playground.4geeks.com/contact/agendas/Joseblue11/contacts/${UserId}`, {
+                      method: 'DELETE'
+                  });
+                  if (!response.ok) {
+                      throw new Error('Error, no se pudo eliminar el Contacto');
+                  }
+                  const { store, actions } = getStore();
+                  const UpdatedUsers = store.Users.filter(User => User.id !== UserId);
+                  setStore({ Users: UpdatedUsers });
+              } catch (error) {
+                  console.error('Error:', error);
+              }
+          }
+      }
+  };
 };
 
 export default getState;
+

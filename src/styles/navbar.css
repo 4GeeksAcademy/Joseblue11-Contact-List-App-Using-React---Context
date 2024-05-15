@@ -1,0 +1,25 @@
+.navbar {
+    background-color: rgb(0, 46, 99);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+  }
+  
+  .logo {
+    display: block;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  
+  .navbar .logo {
+    margin-right: 20px;
+  }
+  
+  .navbar .btn {
+    margin-left: 20px;
+  }
+  
