@@ -11,11 +11,12 @@
   background-image: url(https://wallpapers-clan.com/wp-content/uploads/2024/04/aesthetic-landscape-background-desktop-wallpaper-preview.jpg); /* Replace with the actual image URL */
   background-size: cover;
   background-position: center;
-  margin-left: 10px;
-  margin-right: 10px;
 }
 
-.card2 {
+
+.card1 {
+  height:auto;
+  width: 700px;
   background-color: transparent;
 }
 .text-card {

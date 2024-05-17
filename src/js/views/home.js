@@ -18,18 +18,19 @@ export const Home = () => {
   const { store, actions } = useContext(Context);
 
   useEffect(() => {
+    actions.createAgenda();
     actions.getData();
     setDataLoading(false);
   }, []);
 
-  const handleDelete = async (UserId) => {
+  const handleDelete = async (contactId) => {
     try {
       const verifyDelete = window.confirm(
         "¿Estás seguro que deseas eliminar este contacto?"
       );
       if (!verifyDelete) return;
 
-      await actions.deleteUser(UserId);
+      await actions.deleteUser(contactId);
       actions.getData();
     } catch (error) {
       console.error("Error:", error);
@@ -49,7 +50,7 @@ export const Home = () => {
           </p>
         </div>
         <br />
-        <div className="row justify-content-center w-70">
+        <div className="justify-content-center">
           {dataLoading ? (
             <div
               className="d-flex justify-content-center align-items-center"
@@ -59,10 +60,10 @@ export const Home = () => {
                 <span className="visually-hidden">Loading...</span>
               </Spinner>
             </div>
-          ) : store.Users && store.Users.length > 0 ? (
-            store.Users.map((User) => (
-              <div key={User.id} className="card1">
-                <Card style={{ backgroundColor: "transparent" }}>
+          ) : store.contacts && store.contacts.length > 0 ? (
+            store.contacts.map((contact) => (
+              <div className="card1" key={contact.id}>
+                <Card style={{ backgroundColor: "transparent"}}>
                   <div className="Card-body m-2">
                     <div className="container-grid-custom">
                       <div className="container-int">
@@ -74,34 +75,34 @@ export const Home = () => {
                           />
                         </div>
                         <div>
-                          <div className="Text1 fs-2">{User.name}</div>
+                          <div className="Text1 fs-2">{contact.name}</div>
                           <div className="Text1 text-card">
                             <FontAwesomeIcon
                               className="text-secondary me-1"
                               icon={faMapMarkerAlt}
                             />{" "}
-                            Address: {User.address}
+                            Address: {contact.address}
                           </div>
                           <div className="Text1 text-card">
                             <FontAwesomeIcon
                               className="text-secondary me-1"
                               icon={faPhone}
                             />{" "}
-                            Phone: {User.phone}
+                            Phone: {contact.phone}
                           </div>
                           <div className="Text1 text-card">
                             <FontAwesomeIcon
                               className="text-secondary me-1"
                               icon={faEnvelope}
                             />{" "}
-                            Email: {User.email}
+                            Email: {contact.email}
                           </div>
                         </div>
                       </div>
 
                       <div>
                         <Link
-                          to={`/edit-user/${User.id}`}
+                          to={`/edit-user/${contact.id}`}
                           className="button-style"
                         >
                           <FontAwesomeIcon
@@ -112,7 +113,7 @@ export const Home = () => {
                         <Button
                           variant="link"
                           className="button-style"
-                          onClick={() => handleDelete(User.id)}
+                          onClick={() => handleDelete(contact.id)}
                         >
                           <FontAwesomeIcon
                             icon={faTrashAlt}

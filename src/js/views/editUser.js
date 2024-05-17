@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faReply } from "@fortawesome/free-solid-svg-icons";
 import "../../styles/editUser.css";
 
-export const editUser= () => {
+export const EditUser= () => {
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -20,11 +20,11 @@ export const editUser= () => {
     fetch(`https://playground.4geeks.com/contact/agendas/Joseblue11`)
       .then((response) => response.json())
       .then((data) => {
-        const User = data.contacts.find(
-          (User) => User.id === parseInt(id)
+        const currentContact = data.contacts.find(
+          (contact) => contact.id === parseInt(id)
         );
-        if (User) {
-          setForm(User);
+        if (currentContact) { 
+          setForm(currentContact);
           setDataLoading(false);
         } else {
           throw new Error("User not found");
@@ -82,8 +82,8 @@ export const editUser= () => {
   }
 
   return (
-    <div className="AddUsers container ">
-      <div className="Forms container" onSubmit={handleSubmit}>
+    <div className="EditUser container ">
+      <form className="Forms container" onSubmit={handleSubmit}>
         <div className="text-start mt-2 title-form">
           <br />
           <h2 className="text-center "> Editar Contacto</h2>
@@ -151,7 +151,7 @@ export const editUser= () => {
             />
           </button>
         </Link>
-      </div>
+      </form>
       <br />
     </div>
   );

@@ -31,7 +31,6 @@ export const AddUser = () => {
         {
           method: "POST",
           headers: {
-            Accept: "application/json",
             "Content-Type": "application/json",
           },
           body: JSON.stringify(form),
@@ -58,10 +57,10 @@ export const AddUser = () => {
 
   return (
     <div className="AddUser container ">
-      <div className="Forms container" onSubmit={handleSubmit}>
+      <form className="Forms container" onSubmit={handleSubmit}>
         <div className="text-start mt-2 title-form">
           <br />
-          <h2 className="text-center "> Crear un nuevo contacto</h2>
+          <h2 className="text-center "> Crear un nuevo Usuario</h2>
         </div>
         <div className="form-group input-container">
           <label htmlFor="name">Name:</label>
@@ -126,7 +125,7 @@ export const AddUser = () => {
             />
           </button>
         </Link>
-      </div>
+      </form>
       <br />
     </div>
   );
